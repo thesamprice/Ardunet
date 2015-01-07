@@ -88,4 +88,20 @@ void detachInterrupt(uint8_t);
 void setup(void);
 void loop(void);
 
+/*!
+* @brief Pullup resistors are used in circuits to ensure that an input pin 
+* settle at an expected logical value (HIGH) when the pin is disconnected or 
+* high-impedance. The pullup() method sets the core processors internal pullup 
+* resistor on a pin. By default the internal pullup is disabled.
+*/
+void pullup(int inpin);
+
+/*!
+* @brief Pullup resistors are used in circuits to ensure that an input pin settle at 
+* an expected logical value (HIGH) when the pin is disconnected or high-impedance. 
+* The noPullup() method disables the internal pullup resistor on a pin on the core processors. 
+* By default the internal pullup is disabled.
+*/
+void noPullup(int inpin);
+
 #endif

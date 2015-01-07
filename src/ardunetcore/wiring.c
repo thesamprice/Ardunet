@@ -140,3 +140,15 @@ void ICACHE_FLASH_ATTR detachInterrupt(uint8_t pin) {
     GPIO_REG_WRITE(GPIO_PIN_ADDR(pin), pin_reg);
     //portEXIT_CRITICAL();
 }
+
+
+void pullup(int inpin)
+{
+    PIN_PULLUP_EN(inpin);
+
+}
+
+void noPullup(int inpin)
+{
+    PIN_PULLUP_DIS(inpin);
+}
