@@ -10,10 +10,9 @@
  *     2014/5/1, v1.0 create this file.
 *******************************************************************************/
 
-extern "C" {
-    #include "esp_common.h"
-    #include "ardunetcore/pwm.h"
-}
+
+#include "esp_common.h"
+#include "ardunetcore/pwm.h"
 
 #include "ardunetcore/ardunetcore.h"
 
