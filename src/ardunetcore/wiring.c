@@ -49,7 +49,7 @@ void ICACHE_FLASH_ATTR init(void) {
     //pwm_init(100, duty);
 }
 
-void ICACHE_FLASH_ATTR pinMode(uint8_t pin, uint8_t mode) {
+void ICACHE_FLASH_ATTR pinMode(uint8_t pin, uint8_t is_output) {
     if ((0x1 << pin) & 0b110101) {
         PIN_FUNC_SELECT(gpio_pin_register[pin], 0);
     } else {
@@ -57,7 +57,7 @@ void ICACHE_FLASH_ATTR pinMode(uint8_t pin, uint8_t mode) {
     }
     PIN_PULLDWN_DIS(gpio_pin_register[pin]);
     PIN_PULLUP_EN(gpio_pin_register[pin]);
-    if (mode) {
+    if (is_output == INPUT) {
         GPIO_REG_WRITE(GPIO_ENABLE_W1TC_ADDRESS, 1<<pin); // GPIO input
     } else {
         GPIO_REG_WRITE(GPIO_ENABLE_W1TS_ADDRESS, 1<<pin); // GPIO output

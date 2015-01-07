@@ -1,5 +1,8 @@
 #ifndef __WIRING_H__
 #define __WIRING_H__
+/* For offical Arduion spec see 
+*  https://github.com/arduino/Arduino/blob/master/hardware/arduino/cores/arduino/Arduino.h
+*/
 
 //#include "esp_common.h"
 #include "c_types.h"
@@ -18,8 +21,8 @@
 #define FALLING GPIO_PIN_INTR_NEGEDGE
 #define RISING GPIO_PIN_INTR_POSEDGE
 
-#define INPUT 0x1
-#define OUTPUT 0x0
+#define INPUT 0x0
+#define OUTPUT 0x1
 
 #define PI 3.1415926535897932384626433832795
 #define HALF_PI 1.5707963267948966192313216916398
@@ -66,8 +69,20 @@ typedef uint8_t byte;
 
 void init(void);
 
-void pinMode(uint8_t, uint8_t);
-void digitalWrite(uint8_t, uint8_t);
+/*!
+* @brief The pinMode() method sets the specified digital I/O pin as INPUT or OUTPUT. 
+* A digital or binary I/O pin can have two possible values: HIGH or LOW. Is it possible 
+* to set or read the value of a digital I/O pin by using the digitalWrite() and digitalRead() 
+* methods.
+*/
+void pinMode(uint8_t pin, uint8_t is_output);
+
+/*!
+* @brief The digitalWrite() method sets the value of a digital output pin. 
+* Possible values are HIGH or LOW
+*/
+void digitalWrite(uint8_t outpin, uint8_t is_high);
+
 int digitalRead(uint8_t);
 int analogRead(uint8_t);
 void analogReference(uint8_t mode);
