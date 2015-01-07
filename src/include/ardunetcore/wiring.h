@@ -1,10 +1,8 @@
 #ifndef __WIRING_H__
 #define __WIRING_H__
 
-#include "esp_common.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/portmacro.h"
+//#include "esp_common.h"
+#include "c_types.h"
 
 #define HIGH 0x1
 #define LOW 0x0

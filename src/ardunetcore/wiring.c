@@ -1,7 +1,8 @@
 #include "ardunetcore/wiring.h"
 #include "ardunetcore/pwm.h"
 
-#include "ardunetcore/HardwareSerial.h"
+#include "eagle_soc.h"
+///#include "ardunetcore/HardwareSerial.h"
 
 int gpio_pin_register[16] = {PERIPHS_IO_MUX_GPIO0_U,
                              PERIPHS_IO_MUX_U0TXD_U,
