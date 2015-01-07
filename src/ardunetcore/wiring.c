@@ -1,7 +1,5 @@
-extern "C" {
-    #include "ardunetcore/wiring.h"
-    #include "ardunetcore/pwm.h"
-}
+#include "ardunetcore/wiring.h"
+#include "ardunetcore/pwm.h"
 
 #include "ardunetcore/HardwareSerial.h"
 
