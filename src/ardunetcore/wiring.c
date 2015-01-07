@@ -26,8 +26,8 @@ int gpio_pin_register[16] = {PERIPHS_IO_MUX_GPIO0_U,
 LOCAL void (*callbacks[16])(void);
 
 LOCAL void interruptHandler() {
-    uint32 gpio_mask = _xt_read_ints();
-    Serial.println(gpio_mask);
+    uint32 gpio_mask = 0; //_xt_read_ints();
+//    Serial.println(gpio_mask);
     for (int i=0 ; i<16 ; i++) {
         if ((0x1<<i) & gpio_mask) {
             if (callbacks[i] != NULL) {
@@ -35,15 +35,15 @@ LOCAL void interruptHandler() {
             }
         }
     }
-    _xt_clear_ints(gpio_mask);
+//    _xt_clear_ints(gpio_mask);
 }
 
 void ICACHE_FLASH_ATTR init(void) {
     for (int i=0 ; i<16 ; i++) {
         detachInterrupt(i);
     }
-    _xt_isr_attach(ETS_GPIO_INUM, (_xt_isr)interruptHandler);
-    _xt_isr_unmask(1<<ETS_GPIO_INUM);
+//    _xt_isr_attach(ETS_GPIO_INUM, (_xt_isr)interruptHandler);
+//    _xt_isr_unmask(1<<ETS_GPIO_INUM);
     
     //uint8_t duty[PWM_CHANNEL] = {0,0,0};
     //pwm_init(100, duty);
@@ -90,19 +90,19 @@ void ICACHE_FLASH_ATTR analogWrite(uint8_t pin, int value) {
 }
 
 unsigned long ICACHE_FLASH_ATTR millis(void) {
-    return system_get_time()/1000L;
+    return 0; //system_get_time()/1000L;
 }
 
 unsigned long ICACHE_FLASH_ATTR micros(void) {
-    return system_get_time();
+    return 0 ; //system_get_time();
 }
 
 void ICACHE_FLASH_ATTR delay(unsigned long ms) {
-    vTaskDelay(ms / portTICK_RATE_MS);
+//    vTaskDelay(ms / portTICK_RATE_MS);
 }
 
 void ICACHE_FLASH_ATTR delayMicroseconds(unsigned long us) {
-    os_delay_us(us);
+    //os_delay_us(us);
 }
 
 unsigned long ICACHE_FLASH_ATTR pulseIn(uint8_t pin, uint8_t state, unsigned long timeout) {
@@ -121,22 +121,22 @@ void ICACHE_FLASH_ATTR attachInterrupt(uint8_t pin, void (*callback)(void), int 
     if (pin<0 || pin>=16) return;
     callbacks[pin] = callback;
     
-    portENTER_CRITICAL();
+//    portENTER_CRITICAL();
     uint32 pin_reg = GPIO_REG_READ(GPIO_PIN_ADDR(pin));
     pin_reg &= (~GPIO_PIN_INT_TYPE_MASK);
     pin_reg |= (mode << GPIO_PIN_INT_TYPE_LSB);
     GPIO_REG_WRITE(GPIO_PIN_ADDR(pin), pin_reg);
-    portEXIT_CRITICAL();
+//    portEXIT_CRITICAL();
 }
 
 void ICACHE_FLASH_ATTR detachInterrupt(uint8_t pin) {
     if (pin<0 || pin>=16) return;
     callbacks[pin] = NULL;
     
-    portENTER_CRITICAL();
+  //  portENTER_CRITICAL();
     uint32 pin_reg = GPIO_REG_READ(GPIO_PIN_ADDR(pin));
     pin_reg &= (~GPIO_PIN_INT_TYPE_MASK);
     pin_reg |= (GPIO_PIN_INTR_DISABLE << GPIO_PIN_INT_TYPE_LSB);
     GPIO_REG_WRITE(GPIO_PIN_ADDR(pin), pin_reg);
-    portEXIT_CRITICAL();
+    //portEXIT_CRITICAL();
 }
